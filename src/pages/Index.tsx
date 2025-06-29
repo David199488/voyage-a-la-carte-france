@@ -1,4 +1,3 @@
-
 import { ArrowRight, Star, Shield, Clock, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -9,36 +8,60 @@ import DestinationCard from '@/components/DestinationCard';
 const Index = () => {
   const destinations = [
     {
-      id: 'istanbul',
-      name: 'Istanbul',
-      price: 'À partir de 188.000 DA',
+      title: 'Istanbul',
+      subtitle: 'Découvrez la magie d\'Istanbul, entre Europe et Asie',
       image: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      description: 'Découvrez la magie d\'Istanbul, entre Europe et Asie',
-      link: '/istanbul'
+      duration: '8 jours / 7 nuits',
+      price: 'À partir de 188.000 DA',
+      link: '/istanbul',
+      highlights: [
+        'Visite de Sainte-Sophie et la Mosquée Bleue',
+        'Croisière sur le Bosphore',
+        'Grand Bazar et Bazar aux Épices',
+        'Palais de Topkapi'
+      ]
     },
     {
-      id: 'vietnam',
-      name: 'Vietnam',
-      price: 'À partir de 280.000 DA',
+      title: 'Vietnam',
+      subtitle: 'Explorez les paysages époustouflants du Vietnam',
       image: 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      description: 'Explorez les paysages époustouflants du Vietnam',
-      link: '/vietnam'
+      duration: '10 jours / 9 nuits',
+      price: 'À partir de 280.000 DA',
+      link: '/vietnam',
+      highlights: [
+        'Baie d\'Halong et ses formations rocheuses',
+        'Temples et pagodes de Hanoi',
+        'Delta du Mékong',
+        'Ville historique de Hoi An'
+      ]
     },
     {
-      id: 'malaisie',
-      name: 'Malaisie',
-      price: 'À partir de 315.000 DA',
+      title: 'Malaisie',
+      subtitle: 'Immergez-vous dans la diversité culturelle de la Malaisie',
       image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      description: 'Immergez-vous dans la diversité culturelle de la Malaisie',
-      link: '/malaisie'
+      duration: '9 jours / 8 nuits',
+      price: 'À partir de 315.000 DA',
+      link: '/malaisie',
+      highlights: [
+        'Tours Petronas de Kuala Lumpur',
+        'Temples de Batu Caves',
+        'île de Langkawi',
+        'Marchés de nuit de Penang'
+      ]
     },
     {
-      id: 'zanzibar',
-      name: 'Zanzibar',
-      price: 'À partir de 220.000 DA',
+      title: 'Zanzibar',
+      subtitle: 'Détendez-vous sur les plages paradisiaques de Zanzibar',
       image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      description: 'Détendez-vous sur les plages paradisiaques de Zanzibar',
-      link: '/zanzibar'
+      duration: '7 jours / 6 nuits',
+      price: 'À partir de 220.000 DA',
+      link: '/zanzibar',
+      highlights: [
+        'Plages de sable blanc',
+        'Stone Town historique',
+        'Forêt de Jozani',
+        'Épices et marchés locaux'
+      ]
     }
   ];
 
