@@ -1,3 +1,4 @@
+
 import { ArrowRight, Star, Shield, Clock, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -10,7 +11,7 @@ const Index = () => {
     {
       title: 'Istanbul',
       subtitle: 'Découvrez la magie d\'Istanbul, entre Europe et Asie',
-      image: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/lovable-uploads/66c80a95-c6a1-4198-8098-5e35bc7e97e5.png',
       duration: '8 jours / 7 nuits',
       price: 'À partir de 188.000 DA',
       link: '/istanbul',
@@ -24,7 +25,7 @@ const Index = () => {
     {
       title: 'Vietnam',
       subtitle: 'Explorez les paysages époustouflants du Vietnam',
-      image: 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/lovable-uploads/abcb9ad2-c8cd-4115-922c-7385c659be79.png',
       duration: '10 jours / 9 nuits',
       price: 'À partir de 280.000 DA',
       link: '/vietnam',
@@ -38,7 +39,7 @@ const Index = () => {
     {
       title: 'Malaisie',
       subtitle: 'Immergez-vous dans la diversité culturelle de la Malaisie',
-      image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/lovable-uploads/cec22ef4-cc82-47f6-957b-c617a04237ee.png',
       duration: '9 jours / 8 nuits',
       price: 'À partir de 315.000 DA',
       link: '/malaisie',
@@ -52,7 +53,7 @@ const Index = () => {
     {
       title: 'Zanzibar',
       subtitle: 'Détendez-vous sur les plages paradisiaques de Zanzibar',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: '/lovable-uploads/ee7e360f-d700-440c-ad7c-c2d0d35a6552.png',
       duration: '7 jours / 6 nuits',
       price: 'À partir de 220.000 DA',
       link: '/zanzibar',
@@ -88,14 +89,19 @@ const Index = () => {
     }
   ];
 
+  const scrollToDestinations = () => {
+    const destinationsSection = document.getElementById('destinations');
+    if (destinationsSection) {
+      destinationsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-5"></div>
-        
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <TypewriterEffect />
           
@@ -104,18 +110,12 @@ const Index = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              to="#destinations"
+            <button 
+              onClick={scrollToDestinations}
               className="bg-agency-green text-black px-8 py-4 rounded-lg font-semibold hover:bg-green-400 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Découvrir nos destinations
-            </Link>
-            <Link 
-              to="/contact"
-              className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold hover:border-agency-green hover:text-agency-green transition-all duration-300"
-            >
-              Nous contacter
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -177,15 +177,8 @@ const Index = () => {
             Prêt pour votre prochaine aventure ?
           </h2>
           <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
-            Contactez-nous dès maintenant et laissez-nous organiser le voyage de vos rêves
+            Découvrez nos destinations exceptionnelles et laissez-nous organiser le voyage de vos rêves
           </p>
-          <Link 
-            to="/contact"
-            className="inline-flex items-center bg-black text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105"
-          >
-            Commencer mon voyage
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Link>
         </div>
       </section>
 

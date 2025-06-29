@@ -31,7 +31,7 @@ const Footer = () => {
             <img 
               src="/lovable-uploads/7231eff3-1708-467a-8fd0-65e2c268f27f.png" 
               alt="UGXO" 
-              className="h-10 w-auto mx-auto mb-4 filter invert"
+              className="h-16 w-auto mx-auto mb-4 filter invert"
             />
             <p className="text-gray-400">Voyages organisés prêts à réserver</p>
           </div>
