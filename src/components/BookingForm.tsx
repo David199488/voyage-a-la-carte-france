@@ -1,51 +1,74 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Upload, Calculator, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface BookingFormProps {
   destination: string;
   prices: any;
+  departureDates?: any[];
   onClose: () => void;
 }
 
-const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
+const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFormProps) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     phone: '',
+    selectedDeparture: departureDates?.[0] || null,
+    roomType: 'double' as 'double' | 'single',
     totalTravelers: 1,
     adults: 1,
     children: 0,
+    childrenWithBed: 0,
+    childrenWithoutBed: 0,
     babies: 0,
     passports: [] as File[]
   });
 
   const totalSteps = 4;
 
+  const getCurrentPrices = () => {
+    if (departureDates && formData.selectedDeparture) {
+      return formData.selectedDeparture.prices;
+    }
+    return prices;
+  };
+
   const calculateTotal = () => {
-    const { adults, children, babies } = formData;
+    const currentPrices = getCurrentPrices();
+    const { adults, childrenWithBed, childrenWithoutBed, babies, roomType } = formData;
     let total = 0;
     
-    if (prices.double) {
-      total += adults * prices.double;
-      total += children * (prices.child6_12 || prices.child2_6 || 0);
-      total += babies * (prices.baby || 0);
+    // Prix des adultes selon le type de chambre
+    if (roomType === 'double') {
+      total += adults * (currentPrices.double || 0);
+    } else {
+      total += adults * (currentPrices.single || 0);
     }
+    
+    // Prix des enfants avec lit
+    total += childrenWithBed * (currentPrices.child6_12 || currentPrices.child2_6 || 0);
+    
+    // Prix des enfants sans lit
+    total += childrenWithoutBed * (currentPrices.child2_6 || 0);
+    
+    // Prix des bébés
+    total += babies * (currentPrices.baby || 0);
     
     return total;
   };
 
   const handleSubmit = () => {
-    // Simulation d'envoi email
     toast.success("Réservation envoyée ! Nous vous contacterons sous 24h.");
     console.log('Données de réservation:', { destination, formData, total: calculateTotal() });
     onClose();
   };
 
   const validatePhone = (phone: string) => {
-    return phone.startsWith('+213') && phone.length >= 13;
+    const cleanPhone = phone.replace(/\s/g, '');
+    return (cleanPhone.startsWith('06') || cleanPhone.startsWith('07')) && cleanPhone.length === 10;
   };
 
   const handleFileUpload = (files: FileList | null) => {
@@ -59,21 +82,23 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
   };
 
   const StepIndicator = () => (
-    <div className="flex items-center justify-center mb-8">
-      {[1, 2, 3, 4].map((stepNumber) => (
-        <div key={stepNumber} className="flex items-center">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-            step >= stepNumber ? 'bg-agency-green text-black' : 'bg-gray-200 text-gray-500'
-          }`}>
-            {stepNumber}
+    <div className="flex items-center justify-center mb-8 px-4">
+      <div className="flex items-center max-w-full overflow-x-auto">
+        {[1, 2, 3, 4].map((stepNumber) => (
+          <div key={stepNumber} className="flex items-center flex-shrink-0">
+            <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-semibold text-sm ${
+              step >= stepNumber ? 'bg-agency-green text-black' : 'bg-gray-200 text-gray-500'
+            }`}>
+              {stepNumber}
+            </div>
+            {stepNumber < 4 && (
+              <div className={`w-8 md:w-16 h-1 mx-1 md:mx-2 ${
+                step > stepNumber ? 'bg-agency-green' : 'bg-gray-200'
+              }`} />
+            )}
           </div>
-          {stepNumber < 4 && (
-            <div className={`w-16 h-1 mx-2 ${
-              step > stepNumber ? 'bg-agency-green' : 'bg-gray-200'
-            }`} />
-          )}
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 
@@ -81,7 +106,7 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b p-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Réservation - {destination}</h2>
+          <h2 className="text-xl md:text-2xl font-bold">Réservation - {destination}</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
             <X className="w-6 h-6" />
           </button>
@@ -122,16 +147,36 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
                 <label className="block text-sm font-medium mb-2">Téléphone *</label>
                 <input
                   type="tel"
-                  placeholder="+213XXXXXXXXX"
+                  placeholder="06 xx xx xx xx ou 07 xx xx xx xx"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-agency-green"
                   value={formData.phone}
                   onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                   required
                 />
                 {formData.phone && !validatePhone(formData.phone) && (
-                  <p className="text-red-500 text-sm mt-1">Format requis: +213XXXXXXXXX</p>
+                  <p className="text-red-500 text-sm mt-1">Format requis: 06 xx xx xx xx ou 07 xx xx xx xx</p>
                 )}
               </div>
+
+              {departureDates && departureDates.length > 0 && (
+                <div>
+                  <label className="block text-sm font-medium mb-2">Date de départ *</label>
+                  <select
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-agency-green"
+                    value={departureDates.indexOf(formData.selectedDeparture)}
+                    onChange={(e) => setFormData(prev => ({ 
+                      ...prev, 
+                      selectedDeparture: departureDates[parseInt(e.target.value)]
+                    }))}
+                  >
+                    {departureDates.map((departure, index) => (
+                      <option key={index} value={index}>
+                        {departure.dates || departure.period}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               <button
                 onClick={() => setStep(2)}
@@ -147,13 +192,35 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
             <div className="space-y-6">
               <h3 className="text-xl font-semibold flex items-center">
                 <Users className="w-6 h-6 mr-2" />
-                Nombre de voyageurs
+                Type de chambre et voyageurs
               </h3>
               
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-sm text-blue-800">
-                  <strong>Exemple:</strong> 2 adultes, 1 enfant, 1 bébé
-                </p>
+              <div>
+                <label className="block text-sm font-medium mb-2">Type de chambre *</label>
+                <div className="grid grid-cols-2 gap-4">
+                  <label className="flex items-center space-x-2 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="roomType"
+                      value="double"
+                      checked={formData.roomType === 'double'}
+                      onChange={(e) => setFormData(prev => ({ ...prev, roomType: e.target.value as 'double' | 'single' }))}
+                      className="text-agency-green"
+                    />
+                    <span>Chambre double</span>
+                  </label>
+                  <label className="flex items-center space-x-2 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input
+                      type="radio"
+                      name="roomType"
+                      value="single"
+                      checked={formData.roomType === 'single'}
+                      onChange={(e) => setFormData(prev => ({ ...prev, roomType: e.target.value as 'double' | 'single' }))}
+                      className="text-agency-green"
+                    />
+                    <span>Chambre single</span>
+                  </label>
+                </div>
               </div>
 
               <div>
@@ -168,6 +235,8 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
                       totalTravelers: total,
                       adults: Math.min(prev.adults, total),
                       children: 0,
+                      childrenWithBed: 0,
+                      childrenWithoutBed: 0,
                       babies: 0
                     }));
                   }}
@@ -179,7 +248,7 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
               </div>
 
               {formData.totalTravelers > 0 && (
-                <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">Adultes</label>
                     <select
@@ -194,13 +263,26 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-2">Enfants (2-12 ans)</label>
+                    <label className="block text-sm font-medium mb-2">Enfants (2-12 ans) avec lit</label>
                     <select
                       className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-agency-green"
-                      value={formData.children}
-                      onChange={(e) => setFormData(prev => ({ ...prev, children: Number(e.target.value) }))}
+                      value={formData.childrenWithBed}
+                      onChange={(e) => setFormData(prev => ({ ...prev, childrenWithBed: Number(e.target.value) }))}
                     >
                       {Array.from({length: formData.totalTravelers - formData.adults + 1}, (_, i) => (
+                        <option key={i} value={i}>{i}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Enfants (2-12 ans) sans lit</label>
+                    <select
+                      className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-agency-green"
+                      value={formData.childrenWithoutBed}
+                      onChange={(e) => setFormData(prev => ({ ...prev, childrenWithoutBed: Number(e.target.value) }))}
+                    >
+                      {Array.from({length: formData.totalTravelers - formData.adults - formData.childrenWithBed + 1}, (_, i) => (
                         <option key={i} value={i}>{i}</option>
                       ))}
                     </select>
@@ -213,7 +295,7 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
                       value={formData.babies}
                       onChange={(e) => setFormData(prev => ({ ...prev, babies: Number(e.target.value) }))}
                     >
-                      {Array.from({length: formData.totalTravelers - formData.adults - formData.children + 1}, (_, i) => (
+                      {Array.from({length: formData.totalTravelers - formData.adults - formData.childrenWithBed - formData.childrenWithoutBed + 1}, (_, i) => (
                         <option key={i} value={i}>{i}</option>
                       ))}
                     </select>
@@ -230,7 +312,7 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
                 </button>
                 <button
                   onClick={() => setStep(3)}
-                  disabled={formData.adults + formData.children + formData.babies !== formData.totalTravelers}
+                  disabled={formData.adults + formData.childrenWithBed + formData.childrenWithoutBed + formData.babies !== formData.totalTravelers}
                   className="flex-1 btn-agency py-3 px-6 rounded-lg font-semibold disabled:opacity-50"
                 >
                   Suivant
@@ -325,6 +407,16 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
                     <span>Destination:</span>
                     <span className="font-medium">{destination}</span>
                   </div>
+                  {formData.selectedDeparture && (
+                    <div className="flex justify-between">
+                      <span>Départ:</span>
+                      <span className="font-medium">{formData.selectedDeparture.dates || formData.selectedDeparture.period}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between">
+                    <span>Type de chambre:</span>
+                    <span className="font-medium">{formData.roomType === 'double' ? 'Double' : 'Single'}</span>
+                  </div>
                   <div className="flex justify-between">
                     <span>Voyageurs:</span>
                     <span className="font-medium">{formData.totalTravelers} personne{formData.totalTravelers > 1 ? 's' : ''}</span>
@@ -341,20 +433,26 @@ const BookingForm = ({ destination, prices, onClose }: BookingFormProps) => {
                 <div className="space-y-3">
                   {formData.adults > 0 && (
                     <div className="flex justify-between">
-                      <span>{formData.adults} Adulte{formData.adults > 1 ? 's' : ''} (chambre double)</span>
-                      <span className="font-medium">{(formData.adults * (prices.double || 0)).toLocaleString()} DA</span>
+                      <span>{formData.adults} Adulte{formData.adults > 1 ? 's' : ''} ({formData.roomType === 'double' ? 'chambre double' : 'chambre single'})</span>
+                      <span className="font-medium">{(formData.adults * (formData.roomType === 'double' ? getCurrentPrices().double : getCurrentPrices().single)).toLocaleString()} DA</span>
                     </div>
                   )}
-                  {formData.children > 0 && (
+                  {formData.childrenWithBed > 0 && (
                     <div className="flex justify-between">
-                      <span>{formData.children} Enfant{formData.children > 1 ? 's' : ''} (2-12 ans)</span>
-                      <span className="font-medium">{(formData.children * (prices.child6_12 || prices.child2_6 || 0)).toLocaleString()} DA</span>
+                      <span>{formData.childrenWithBed} Enfant{formData.childrenWithBed > 1 ? 's' : ''} avec lit</span>
+                      <span className="font-medium">{(formData.childrenWithBed * (getCurrentPrices().child6_12 || getCurrentPrices().child2_6 || 0)).toLocaleString()} DA</span>
+                    </div>
+                  )}
+                  {formData.childrenWithoutBed > 0 && (
+                    <div className="flex justify-between">
+                      <span>{formData.childrenWithoutBed} Enfant{formData.childrenWithoutBed > 1 ? 's' : ''} sans lit</span>
+                      <span className="font-medium">{(formData.childrenWithoutBed * (getCurrentPrices().child2_6 || 0)).toLocaleString()} DA</span>
                     </div>
                   )}
                   {formData.babies > 0 && (
                     <div className="flex justify-between">
                       <span>{formData.babies} Bébé{formData.babies > 1 ? 's' : ''} (0-2 ans)</span>
-                      <span className="font-medium">{(formData.babies * (prices.baby || 0)).toLocaleString()} DA</span>
+                      <span className="font-medium">{(formData.babies * (getCurrentPrices().baby || 0)).toLocaleString()} DA</span>
                     </div>
                   )}
                   

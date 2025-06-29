@@ -1,25 +1,21 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Istanbul from "./pages/Istanbul";
-import Vietnam from "./pages/Vietnam";
-import Malaisie from "./pages/Malaisie";
-import Zanzibar from "./pages/Zanzibar";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import ScrollToTop from '@/components/ScrollToTop';
+import Index from '@/pages/Index';
+import Istanbul from '@/pages/Istanbul';
+import Vietnam from '@/pages/Vietnam';
+import Malaisie from '@/pages/Malaisie';
+import Zanzibar from '@/pages/Zanzibar';
+import Contact from '@/pages/Contact';
+import NotFound from '@/pages/NotFound';
+import './App.css';
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <div className="App">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/istanbul" element={<Istanbul />} />
@@ -29,9 +25,10 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+        <Toaster position="top-right" />
+      </div>
+    </Router>
+  );
+}
 
 export default App;

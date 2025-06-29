@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -8,9 +7,9 @@ import { Calendar, MapPin, Plane, Star, Clock } from 'lucide-react';
 const Zanzibar = () => {
   const [showBookingForm, setShowBookingForm] = useState(false);
 
-  const departures = [
-    "12 → 22 août",
-    "31 août → 10 septembre" 
+  const departureDates = [
+    { period: "12 → 22 août", prices: { double: 355000, single: 436000, child2_6: 249000, child6_12: 340000, baby: 48000, visa: 90 } },
+    { period: "31 août → 10 septembre", prices: { double: 355000, single: 436000, child2_6: 249000, child6_12: 340000, baby: 48000, visa: 90 } }
   ];
 
   const prices = {
@@ -87,10 +86,10 @@ const Zanzibar = () => {
           <div className="bg-white rounded-2xl shadow-lg p-8 animate-fade-in">
             <h2 className="text-3xl font-bold text-black mb-6">Départs 2025</h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-              {departures.map((departure, index) => (
+              {departureDates.map((departure, index) => (
                 <div key={index} className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow text-center">
                   <Calendar className="w-12 h-12 text-agency-green mx-auto mb-4" />
-                  <h3 className="font-semibold text-xl">{departure}</h3>
+                  <h3 className="font-semibold text-xl">{departure.period}</h3>
                 </div>
               ))}
             </div>
@@ -240,6 +239,7 @@ const Zanzibar = () => {
         <BookingForm 
           destination="Zanzibar"
           prices={prices}
+          departureDates={departureDates}
           onClose={() => setShowBookingForm(false)}
         />
       )}

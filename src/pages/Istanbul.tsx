@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -201,6 +200,7 @@ const Istanbul = () => {
         <BookingForm 
           destination="Istanbul"
           prices={departureDates[0].prices}
+          departureDates={departureDates}
           onClose={() => setShowBookingForm(false)}
         />
       )}
