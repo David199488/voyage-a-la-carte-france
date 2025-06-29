@@ -152,7 +152,7 @@ const Malaisie = () => {
                 <thead>
                   <tr className="border-b-2 border-agency-green">
                     <th className="text-left py-4 px-4 font-semibold">Catégorie</th>
-                    <th className="text-right py-4 px-4 font-semibold">Départs 16 juil & 5 sept (DA)</th>
+                    <th className="text-right py-4 px-4 font-semibold">Départs 5 sept (DA)</th>
                     <th className="text-right py-4 px-4 font-semibold">Autres dates (DA)</th>
                   </tr>
                 </thead>
@@ -178,7 +178,7 @@ const Malaisie = () => {
                     <td className="py-4 px-4 text-right font-medium">{pricesStandard.child6_12.toLocaleString()}</td>
                   </tr>
                   <tr>
-                    <td className="py-4 px-4">Bébé < 2 ans</td>
+                    <td className="py-4 px-4">Bébé {'<'} 2 ans</td>
                     <td className="py-4 px-4 text-right font-medium">{pricesSpecial.baby.toLocaleString()}</td>
                     <td className="py-4 px-4 text-right font-medium">{pricesStandard.baby.toLocaleString()}</td>
                   </tr>

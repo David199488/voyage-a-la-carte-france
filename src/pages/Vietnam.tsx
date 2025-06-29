@@ -130,7 +130,7 @@ const Vietnam = () => {
                     <td className="py-4 px-4 text-right font-medium">{prices.child2_6.toLocaleString()}</td>
                   </tr>
                   <tr>
-                    <td className="py-4 px-4">Bébé < 2 ans</td>
+                    <td className="py-4 px-4">Bébé {'<'} 2 ans</td>
                     <td className="py-4 px-4 text-right font-medium">{prices.baby.toLocaleString()}</td>
                   </tr>
                 </tbody>

@@ -102,12 +102,12 @@ const Istanbul = () => {
                 <div className="space-y-4">
                   <div className="bg-gray-50 rounded-lg p-4">
                     <div className="font-semibold">Aller</div>
-                    <div className="text-sm text-gray-600">TK 652 – Alger > Istanbul</div>
+                    <div className="text-sm text-gray-600">TK 652 – Alger {'->'} Istanbul</div>
                     <div className="text-sm">Départ 11h40 – Arrivée 17h20</div>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-4">
                     <div className="font-semibold">Retour</div>
-                    <div className="text-sm text-gray-600">TK 653 – Istanbul > Alger</div>
+                    <div className="text-sm text-gray-600">TK 653 – Istanbul {'->'} Alger</div>
                     <div className="text-sm">Départ 14h45 – Arrivée 16h40</div>
                   </div>
                 </div>
@@ -161,7 +161,7 @@ const Istanbul = () => {
                       <span>{departure.prices.child2_6.toLocaleString()} DA</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span>Bébé < 2 ans</span>
+                      <span>Bébé {'<'} 2 ans</span>
                       <span>{departure.prices.baby.toLocaleString()} DA</span>
                     </div>
                   </div>
