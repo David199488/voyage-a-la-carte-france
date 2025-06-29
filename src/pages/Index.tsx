@@ -1,105 +1,67 @@
 
-import { useEffect } from 'react';
+import { ArrowRight, Star, Shield, Clock, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TypewriterEffect from '@/components/TypewriterEffect';
 import DestinationCard from '@/components/DestinationCard';
-import { Plane, Shield, Users, Star } from 'lucide-react';
 
 const Index = () => {
-  useEffect(() => {
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
-        }
-      });
-    });
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   const destinations = [
     {
-      title: "Istanbul",
-      subtitle: "Voyage organisé à Istanbul – Été 2025",
-      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?w=800&h=600&fit=crop",
-      duration: "8 jours / 7 nuits",
-      price: "À partir de 135 000 DA",
-      link: "/istanbul",
-      highlights: [
-        "Vols avec Turkish Airlines",
-        "Hôtel avec petit-déjeuner",
-        "4 jours d'excursions guidées",
-        "Shopping à Olivium Outlet"
-      ]
+      id: 'istanbul',
+      name: 'Istanbul',
+      price: 'À partir de 188.000 DA',
+      image: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      description: 'Découvrez la magie d\'Istanbul, entre Europe et Asie',
+      link: '/istanbul'
     },
     {
-      title: "Vietnam",
-      subtitle: "De Hô Chi Minh-Ville à la Baie d'Ha Long",
-      image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&h=600&fit=crop",
-      duration: "11 jours / 9 nuits",
-      price: "À partir de 339 000 DA",
-      link: "/vietnam",
-      highlights: [
-        "Vols Qatar Airways",
-        "Séjour détente à Phu Quoc",
-        "Croisière Baie d'Ha Long",
-        "Guide francophone"
-      ]
+      id: 'vietnam',
+      name: 'Vietnam',
+      price: 'À partir de 280.000 DA',
+      image: 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      description: 'Explorez les paysages époustouflants du Vietnam',
+      link: '/vietnam'
     },
     {
-      title: "Malaisie",
-      subtitle: "L'alliance du futur et du paradis tropical",
-      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800&h=600&fit=crop",
-      duration: "11 jours / 9 nuits",
-      price: "À partir de 249 000 DA", 
-      link: "/malaisie",
-      highlights: [
-        "Kuala Lumpur moderne",
-        "Plages de Langkawi",
-        "Tours Petronas et Batu Caves",
-        "Genting Highlands"
-      ]
+      id: 'malaisie',
+      name: 'Malaisie',
+      price: 'À partir de 315.000 DA',
+      image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      description: 'Immergez-vous dans la diversité culturelle de la Malaisie',
+      link: '/malaisie'
     },
     {
-      title: "Zanzibar",
-      subtitle: "Évasion paradisiaque entre culture et plages",
-      image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=800&h=600&fit=crop",
-      duration: "10 jours / 9 nuits",
-      price: "À partir de 249 000 DA",
-      link: "/zanzibar",
-      highlights: [
-        "Vols Fly Emirates",
-        "Stone Town historique",
-        "Plages de Nungwi",
-        "Excursion dauphins"
-      ]
+      id: 'zanzibar',
+      name: 'Zanzibar',
+      price: 'À partir de 220.000 DA',
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      description: 'Détendez-vous sur les plages paradisiaques de Zanzibar',
+      link: '/zanzibar'
     }
   ];
 
   const features = [
     {
-      icon: Plane,
-      title: "Vols Inclus",
-      description: "Vols internationaux avec compagnies prestigieuses"
+      icon: <Star className="w-8 h-8 text-agency-green" />,
+      title: 'Expérience Premium',
+      description: 'Des voyages soigneusement organisés pour une expérience inoubliable'
     },
     {
-      icon: Shield,
-      title: "Sécurisé",
-      description: "Voyages organisés et encadrés par des professionnels"
+      icon: <Shield className="w-8 h-8 text-agency-green" />,
+      title: 'Sécurité Garantie',
+      description: 'Voyagez en toute sérénité avec nos partenaires de confiance'
     },
     {
-      icon: Users,
-      title: "Guides Experts",
-      description: "Accompagnement par des guides locaux francophones"
+      icon: <Clock className="w-8 h-8 text-agency-green" />,
+      title: 'Gain de Temps',
+      description: 'Tout est organisé pour vous, concentrez-vous sur le plaisir'
     },
     {
-      icon: Star,
-      title: "Qualité Premium",
-      description: "Hôtels sélectionnés et excursions exclusives"
+      icon: <Users className="w-8 h-8 text-agency-green" />,
+      title: 'Support 24/7',
+      description: 'Une équipe dédiée à votre service avant, pendant et après votre voyage'
     }
   ];
 
@@ -108,61 +70,99 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white">
-        <div className="container mx-auto px-6 text-center">
-          <div className="animate-fade-in">
-            <TypewriterEffect />
-            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-              Découvrez nos destinations exceptionnelles avec des voyages organisés 
-              clés en main. Votre aventure commence ici.
-            </p>
-            <a 
-              href="#destinations"
-              className="btn-agency inline-block py-4 px-8 rounded-lg text-lg font-semibold transition-all duration-300"
+      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-5"></div>
+        
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+          <TypewriterEffect />
+          
+          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+            Découvrez nos destinations soigneusement sélectionnées et partez à l'aventure sans souci
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              to="#destinations"
+              className="bg-agency-green text-black px-8 py-4 rounded-lg font-semibold hover:bg-green-400 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Découvrir nos destinations
-            </a>
+            </Link>
+            <Link 
+              to="/contact"
+              className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold hover:border-agency-green hover:text-agency-green transition-all duration-300"
+            >
+              Nous contacter
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Destinations Section */}
+      <section id="destinations" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-black mb-16 animate-on-scroll">
-            Pourquoi choisir Voyages<span className="text-agency-green">+</span> ?
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Nos Destinations
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Choisissez votre prochaine aventure parmi nos destinations exclusives
+            </p>
+          </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {destinations.map((destination) => (
+              <DestinationCard key={destination.id} {...destination} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Pourquoi nous choisir
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Nous nous engageons à vous offrir une expérience de voyage exceptionnelle
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="text-center animate-on-scroll">
-                <div className="bg-agency-green rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-8 h-8 text-black" />
+              <div key={index} className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                <div className="flex justify-center mb-4">
+                  {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Destinations Section */}
-      <section id="destinations" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-black mb-4">
-            Nos Destinations Exceptionnelles
+      {/* CTA Section */}
+      <section className="py-20 bg-agency-green">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold text-black mb-6">
+            Prêt pour votre prochaine aventure ?
           </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-            Partez à la découverte de destinations uniques avec nos voyages organisés. 
-            Chaque voyage est soigneusement préparé pour vous offrir une expérience inoubliable.
+          <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
+            Contactez-nous dès maintenant et laissez-nous organiser le voyage de vos rêves
           </p>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {destinations.map((destination, index) => (
-              <DestinationCard key={index} {...destination} />
-            ))}
-          </div>
+          <Link 
+            to="/contact"
+            className="inline-flex items-center bg-black text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105"
+          >
+            Commencer mon voyage
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Link>
         </div>
       </section>
 

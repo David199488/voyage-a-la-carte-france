@@ -23,6 +23,7 @@ const Header = () => {
     { path: '/vietnam', label: 'Vietnam' },
     { path: '/malaisie', label: 'Malaisie' },
     { path: '/zanzibar', label: 'Zanzibar' },
+    { path: '/visa-electronique', label: 'Visa électronique' },
     { path: '/contact', label: 'Contact' }
   ];
 
@@ -32,8 +33,12 @@ const Header = () => {
     }`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold text-black">
-            Voyages<span className="text-agency-green">+</span>
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/7231eff3-1708-467a-8fd0-65e2c268f27f.png" 
+              alt="UGXO" 
+              className="h-8 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}

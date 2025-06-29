@@ -4,22 +4,22 @@ const Footer = () => {
     { 
       name: 'Facebook', 
       icon: '/lovable-uploads/a7dc3d84-6615-4bda-b59a-58b12dcf9050.png', 
-      url: '#' 
+      url: 'https://www.facebook.com/share/19PpeEjcAm/' 
     },
     { 
       name: 'Instagram', 
       icon: '/lovable-uploads/442be670-f514-4c7b-8b85-69de8ae02641.png', 
-      url: '#' 
+      url: 'https://www.instagram.com/ugxo.visa?igsh=MTIwNW1qOW1lcmxpcg==' 
     },
     { 
       name: 'WhatsApp', 
       icon: '/lovable-uploads/479dbf50-3a63-4362-8e24-22455cc0ef83.png', 
-      url: 'https://wa.me/213XXXXXXXXX' 
+      url: 'https://wa.me/message/XQHTUYJDF73XD1' 
     },
     { 
       name: 'TikTok', 
       icon: '/lovable-uploads/03e14adf-4dd3-49ec-915f-3d4cb9c6f605.png', 
-      url: '#' 
+      url: 'https://www.tiktok.com/@ugxo.visa?_t=ZM-8xbju4eSFD4&_r=1' 
     }
   ];
 
@@ -28,9 +28,11 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="text-center">
           <div className="mb-8">
-            <h3 className="text-2xl font-bold mb-2">
-              Voyages<span className="text-agency-green">+</span>
-            </h3>
+            <img 
+              src="/lovable-uploads/7231eff3-1708-467a-8fd0-65e2c268f27f.png" 
+              alt="UGXO" 
+              className="h-10 w-auto mx-auto mb-4 filter invert"
+            />
             <p className="text-gray-400">Voyages organisés prêts à réserver</p>
           </div>
 
@@ -54,7 +56,7 @@ const Footer = () => {
 
           <div className="border-t border-gray-800 pt-8">
             <p className="text-gray-400 text-sm">
-              © 2025 Voyages+. Tous droits réservés.
+              © 2025 UGXO. Tous droits réservés.
             </p>
           </div>
         </div>
