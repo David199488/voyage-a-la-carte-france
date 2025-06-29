@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { X, Upload, Calculator, Users } from 'lucide-react';
 import { toast } from 'sonner';
@@ -64,11 +63,6 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
     toast.success("Réservation envoyée ! Nous vous contacterons sous 24h.");
     console.log('Données de réservation:', { destination, formData, total: calculateTotal() });
     onClose();
-  };
-
-  const validatePhone = (phone: string) => {
-    const cleanPhone = phone.replace(/\s/g, '');
-    return (cleanPhone.startsWith('06') || cleanPhone.startsWith('07')) && cleanPhone.length === 10;
   };
 
   const handleFileUpload = (files: FileList | null) => {
@@ -144,18 +138,14 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Téléphone *</label>
+                <label className="block text-sm font-medium mb-2">Téléphone</label>
                 <input
                   type="tel"
-                  placeholder="06 xx xx xx xx ou 07 xx xx xx xx"
+                  placeholder="Votre numéro de téléphone"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-agency-green"
                   value={formData.phone}
                   onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                  required
                 />
-                {formData.phone && !validatePhone(formData.phone) && (
-                  <p className="text-red-500 text-sm mt-1">Format requis: 06 xx xx xx xx ou 07 xx xx xx xx</p>
-                )}
               </div>
 
               {departureDates && departureDates.length > 0 && (
@@ -180,7 +170,7 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
 
               <button
                 onClick={() => setStep(2)}
-                disabled={!formData.firstName || !formData.lastName || !validatePhone(formData.phone)}
+                disabled={!formData.firstName || !formData.lastName}
                 className="btn-agency w-full py-3 px-6 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Suivant

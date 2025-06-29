@@ -1,12 +1,26 @@
 
-import { Facebook, Instagram } from 'lucide-react';
-
 const Footer = () => {
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, url: '#' },
-    { name: 'Instagram', icon: Instagram, url: '#' },
-    { name: 'WhatsApp', icon: '📱', url: 'https://wa.me/213XXXXXXXXX' },
-    { name: 'TikTok', icon: '🎵', url: '#' }
+    { 
+      name: 'Facebook', 
+      icon: '/lovable-uploads/a7dc3d84-6615-4bda-b59a-58b12dcf9050.png', 
+      url: '#' 
+    },
+    { 
+      name: 'Instagram', 
+      icon: '/lovable-uploads/442be670-f514-4c7b-8b85-69de8ae02641.png', 
+      url: '#' 
+    },
+    { 
+      name: 'WhatsApp', 
+      icon: '/lovable-uploads/479dbf50-3a63-4362-8e24-22455cc0ef83.png', 
+      url: 'https://wa.me/213XXXXXXXXX' 
+    },
+    { 
+      name: 'TikTok', 
+      icon: '/lovable-uploads/03e14adf-4dd3-49ec-915f-3d4cb9c6f605.png', 
+      url: '#' 
+    }
   ];
 
   return (
@@ -29,13 +43,11 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {typeof social.icon === 'string' ? (
-                  <span className="text-xl group-hover:text-black transition-colors">
-                    {social.icon}
-                  </span>
-                ) : (
-                  <social.icon className="w-5 h-5 text-white group-hover:text-black transition-colors" />
-                )}
+                <img 
+                  src={social.icon} 
+                  alt={social.name}
+                  className="w-6 h-6 object-contain"
+                />
               </a>
             ))}
           </div>
