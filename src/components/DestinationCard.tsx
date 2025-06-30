@@ -21,7 +21,7 @@ const DestinationCard = ({ title, subtitle, image, duration, price, link, highli
           alt={title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-4 right-4 bg-agency-green text-black px-3 py-1 rounded-full text-sm font-semibold">
+        <div className="absolute bottom-4 right-4 bg-agency-green text-black px-3 py-1 rounded-full text-sm font-semibold">
           {price}
         </div>
       </div>
