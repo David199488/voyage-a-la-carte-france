@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -43,7 +44,7 @@ const Malaisie = () => {
       <section className="relative h-screen">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=1200&h=800&fit=crop"
+            src="/lovable-uploads/ac897002-14e9-4ff1-9c6f-72f75b51e8a7.png"
             alt="Malaisie"
             className="w-full h-full object-cover"
           />
