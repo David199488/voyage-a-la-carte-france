@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Upload, Calculator, Users } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 interface BookingFormProps {
   destination: string;
@@ -11,6 +12,7 @@ interface BookingFormProps {
 
 const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFormProps) => {
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -59,10 +61,61 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
     return total;
   };
 
-  const handleSubmit = () => {
-    toast.success("Réservation envoyée ! Nous vous contacterons sous 24h.");
-    console.log('Données de réservation:', { destination, formData, total: calculateTotal() });
-    onClose();
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    
+    try {
+      // Prepare passport file names
+      const passportFileNames = formData.passports.map(file => file.name);
+
+      // Insert booking data into Supabase
+      const { data: booking, error: insertError } = await supabase
+        .from('bookings')
+        .insert({
+          destination,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone: formData.phone,
+          selected_departure: formData.selectedDeparture,
+          room_type: formData.roomType,
+          total_travelers: formData.totalTravelers,
+          adults: formData.adults,
+          children_with_bed: formData.childrenWithBed,
+          children_without_bed: formData.childrenWithoutBed,
+          babies: formData.babies,
+          total_price: calculateTotal(),
+          passport_files: passportFileNames,
+        })
+        .select()
+        .single();
+
+      if (insertError) {
+        throw insertError;
+      }
+
+      console.log('Booking saved:', booking);
+
+      // Call edge function to send email
+      const { data: emailResult, error: emailError } = await supabase.functions.invoke('send-booking-email', {
+        body: { bookingId: booking.id }
+      });
+
+      if (emailError) {
+        console.error('Email error:', emailError);
+        // Don't throw here - booking is saved, just email failed
+        toast.success("Réservation enregistrée ! Email en cours d'envoi...");
+      } else {
+        console.log('Email sent:', emailResult);
+        toast.success("Réservation envoyée ! Nous vous contacterons sous 24h.");
+      }
+
+      onClose();
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      toast.error("Erreur lors de l'envoi. Veuillez réessayer.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleFileUpload = (files: FileList | null) => {
@@ -464,9 +517,10 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="flex-1 btn-agency py-3 px-6 rounded-lg font-semibold"
+                  disabled={isSubmitting}
+                  className="flex-1 btn-agency py-3 px-6 rounded-lg font-semibold disabled:opacity-50"
                 >
-                  Confirmer la réservation
+                  {isSubmitting ? 'Envoi en cours...' : 'Confirmer la réservation'}
                 </button>
               </div>
             </div>
