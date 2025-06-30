@@ -11,7 +11,7 @@ const Index = () => {
     {
       title: 'Istanbul',
       subtitle: 'Découvrez la magie d\'Istanbul, entre Europe et Asie',
-      image: '/lovable-uploads/66c80a95-c6a1-4198-8098-5e35bc7e97e5.png',
+      image: '/lovable-uploads/390e3aaa-6973-48f4-a3fa-096f1538c37a.png',
       duration: '8 jours / 7 nuits',
       price: 'À partir de 188.000 DA',
       link: '/istanbul',
@@ -25,7 +25,7 @@ const Index = () => {
     {
       title: 'Vietnam',
       subtitle: 'Explorez les paysages époustouflants du Vietnam',
-      image: '/lovable-uploads/abcb9ad2-c8cd-4115-922c-7385c659be79.png',
+      image: '/lovable-uploads/f80b5580-7a7d-4f12-bfb4-7296da0aba45.png',
       duration: '10 jours / 9 nuits',
       price: 'À partir de 280.000 DA',
       link: '/vietnam',
@@ -39,7 +39,7 @@ const Index = () => {
     {
       title: 'Malaisie',
       subtitle: 'Immergez-vous dans la diversité culturelle de la Malaisie',
-      image: '/lovable-uploads/cec22ef4-cc82-47f6-957b-c617a04237ee.png',
+      image: '/lovable-uploads/53ec24ac-350d-441e-bbb9-f25351d8ac35.png',
       duration: '9 jours / 8 nuits',
       price: 'À partir de 315.000 DA',
       link: '/malaisie',
@@ -53,7 +53,7 @@ const Index = () => {
     {
       title: 'Zanzibar',
       subtitle: 'Détendez-vous sur les plages paradisiaques de Zanzibar',
-      image: '/lovable-uploads/ee7e360f-d700-440c-ad7c-c2d0d35a6552.png',
+      image: '/lovable-uploads/f1e28ec5-cee0-4a1b-bfe9-3e8e2f722b6b.png',
       duration: '7 jours / 6 nuits',
       price: 'À partir de 220.000 DA',
       link: '/zanzibar',
