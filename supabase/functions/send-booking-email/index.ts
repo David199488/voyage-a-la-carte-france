@@ -1,6 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { Resend } from "https://esm.sh/resend@2.0.0"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -20,6 +21,13 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
+    // Initialize Resend client
+    const resendApiKey = Deno.env.get('RESEND_API_KEY')
+    if (!resendApiKey) {
+      throw new Error('RESEND_API_KEY is not configured')
+    }
+    const resend = new Resend(resendApiKey)
+
     // Fetch booking data
     const { data: booking, error } = await supabase
       .from('bookings')
@@ -37,43 +45,55 @@ serve(async (req) => {
       : 'Non spécifiée'
 
     const emailContent = `
-    Nouvelle réservation reçue !
+    <h2>Nouvelle réservation reçue !</h2>
 
-    === INFORMATIONS CLIENT ===
-    Nom: ${booking.last_name}
-    Prénom: ${booking.first_name}
-    Téléphone: ${booking.phone || 'Non renseigné'}
+    <h3>📋 INFORMATIONS CLIENT</h3>
+    <p><strong>Nom:</strong> ${booking.last_name}</p>
+    <p><strong>Prénom:</strong> ${booking.first_name}</p>
+    <p><strong>Téléphone:</strong> ${booking.phone || 'Non renseigné'}</p>
 
-    === DÉTAILS DU VOYAGE ===
-    Destination: ${booking.destination}
-    Date de départ: ${departureInfo}
-    Type de chambre: ${booking.room_type === 'double' ? 'Double' : 'Single'}
+    <h3>✈️ DÉTAILS DU VOYAGE</h3>
+    <p><strong>Destination:</strong> ${booking.destination}</p>
+    <p><strong>Date de départ:</strong> ${departureInfo}</p>
+    <p><strong>Type de chambre:</strong> ${booking.room_type === 'double' ? 'Double' : 'Single'}</p>
 
-    === VOYAGEURS ===
-    Nombre total: ${booking.total_travelers}
-    Adultes: ${booking.adults}
-    Enfants avec lit: ${booking.children_with_bed}
-    Enfants sans lit: ${booking.children_without_bed}
-    Bébés (0-2 ans): ${booking.babies}
+    <h3>👥 VOYAGEURS</h3>
+    <p><strong>Nombre total:</strong> ${booking.total_travelers}</p>
+    <p><strong>Adultes:</strong> ${booking.adults}</p>
+    <p><strong>Enfants avec lit:</strong> ${booking.children_with_bed}</p>
+    <p><strong>Enfants sans lit:</strong> ${booking.children_without_bed}</p>
+    <p><strong>Bébés (0-2 ans):</strong> ${booking.babies}</p>
 
-    === PRIX ===
-    Prix total: ${booking.total_price ? `${booking.total_price.toLocaleString()} DA` : 'À calculer'}
+    <h3>💰 PRIX</h3>
+    <p><strong>Prix total:</strong> ${booking.total_price ? `${booking.total_price.toLocaleString()} DA` : 'À calculer'}</p>
 
-    === PASSEPORTS ===
-    ${booking.passport_files?.length || 0} fichier(s) de passeport uploadé(s)
+    <h3>📄 PASSEPORTS</h3>
+    <p><strong>Fichiers uploadés:</strong> ${booking.passport_files?.length || 0} fichier(s)</p>
+    ${booking.passport_files?.length ? `<p><strong>Noms des fichiers:</strong> ${booking.passport_files.join(', ')}</p>` : ''}
 
-    Réservation créée le: ${new Date(booking.created_at).toLocaleString('fr-FR')}
-    ID de réservation: ${booking.id}
+    <hr>
+    <p><strong>Réservation créée le:</strong> ${new Date(booking.created_at).toLocaleString('fr-FR')}</p>
+    <p><strong>ID de réservation:</strong> ${booking.id}</p>
     `
 
-    console.log('Email content prepared:', emailContent)
-    console.log('Booking data:', booking)
+    console.log('Sending email to badreddinedaoud449@gmail.com...')
+
+    // Send email using Resend
+    const emailResponse = await resend.emails.send({
+      from: 'Voyages Organisés <onboarding@resend.dev>',
+      to: ['badreddinedaoud449@gmail.com'],
+      subject: `Nouvelle réservation - ${booking.destination} - ${booking.first_name} ${booking.last_name}`,
+      html: emailContent,
+    })
+
+    console.log('Email sent successfully:', emailResponse)
 
     return new Response(
       JSON.stringify({ 
         success: true, 
         message: 'Email envoyé avec succès',
-        bookingId: booking.id 
+        bookingId: booking.id,
+        emailId: emailResponse.data?.id
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -82,9 +102,12 @@ serve(async (req) => {
     )
 
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error sending email:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: error.message,
+        details: 'Vérifiez que RESEND_API_KEY est configuré et que le domaine est vérifié'
+      }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 400,
