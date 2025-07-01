@@ -61,12 +61,39 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
     return total;
   };
 
+  const uploadPassportFiles = async () => {
+    const uploadedFiles = [];
+    
+    for (const file of formData.passports) {
+      const timestamp = Date.now();
+      const fileName = `${timestamp}_${file.name}`;
+      
+      console.log('Uploading file:', fileName);
+      
+      const { data, error } = await supabase.storage
+        .from('passport-files')
+        .upload(fileName, file);
+
+      if (error) {
+        console.error('Error uploading file:', error);
+        throw error;
+      }
+      
+      console.log('File uploaded successfully:', data);
+      uploadedFiles.push(fileName);
+    }
+    
+    return uploadedFiles;
+  };
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     
     try {
-      // Prepare passport file names
-      const passportFileNames = formData.passports.map(file => file.name);
+      // Upload passport files to Supabase Storage
+      console.log('Starting file upload...');
+      const uploadedFileNames = await uploadPassportFiles();
+      console.log('Files uploaded:', uploadedFileNames);
 
       // Insert booking data into Supabase
       const { data: booking, error: insertError } = await supabase
@@ -84,7 +111,7 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
           children_without_bed: formData.childrenWithoutBed,
           babies: formData.babies,
           total_price: calculateTotal(),
-          passport_files: passportFileNames,
+          passport_files: uploadedFileNames,
         })
         .select()
         .single();

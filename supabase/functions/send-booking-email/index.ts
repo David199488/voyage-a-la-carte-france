@@ -1,4 +1,5 @@
 
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { Resend } from "https://esm.sh/resend@2.0.0"
@@ -44,6 +45,25 @@ serve(async (req) => {
       ? `${booking.selected_departure.dates || booking.selected_departure.period}`
       : 'Non spécifiée'
 
+    // Generate passport file links
+    let passportLinksHtml = '';
+    if (booking.passport_files && booking.passport_files.length > 0) {
+      const passportLinks = booking.passport_files.map((fileName: string) => {
+        const { data } = supabase.storage
+          .from('passport-files')
+          .getPublicUrl(fileName)
+        
+        return `<li><a href="${data.publicUrl}" target="_blank" style="color: #2754C5; text-decoration: underline;">${fileName}</a></li>`
+      }).join('');
+      
+      passportLinksHtml = `
+        <p><strong>Fichiers passeport (cliquez pour télécharger):</strong></p>
+        <ul style="margin-left: 20px;">
+          ${passportLinks}
+        </ul>
+      `;
+    }
+
     const emailContent = `
     <h2>Nouvelle réservation reçue !</h2>
 
@@ -69,7 +89,7 @@ serve(async (req) => {
 
     <h3>📄 PASSEPORTS</h3>
     <p><strong>Fichiers uploadés:</strong> ${booking.passport_files?.length || 0} fichier(s)</p>
-    ${booking.passport_files?.length ? `<p><strong>Noms des fichiers:</strong> ${booking.passport_files.join(', ')}</p>` : ''}
+    ${passportLinksHtml}
 
     <hr>
     <p><strong>Réservation créée le:</strong> ${new Date(booking.created_at).toLocaleString('fr-FR')}</p>
@@ -115,3 +135,4 @@ serve(async (req) => {
     )
   }
 })
+
