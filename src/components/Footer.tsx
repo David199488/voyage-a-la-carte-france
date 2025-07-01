@@ -1,4 +1,3 @@
-
 const Footer = () => {
   const socialLinks = [
     { 
@@ -48,7 +47,7 @@ const Footer = () => {
                 <img 
                   src={social.icon} 
                   alt={social.name}
-                  className="w-6 h-6 object-contain"
+                  className="w-10 h-10 object-contain"
                 />
               </a>
             ))}
