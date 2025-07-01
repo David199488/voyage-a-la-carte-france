@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { X, Upload, Calculator, Users } from 'lucide-react';
 import { toast } from 'sonner';
@@ -394,78 +395,6 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
           {step === 3 && (
             <div className="space-y-6">
               <h3 className="text-xl font-semibold flex items-center">
-                <Upload className="w-6 h-6 mr-2" />
-                Passeports
-              </h3>
-              
-              <div className="bg-yellow-50 p-4 rounded-lg">
-                <p className="text-sm text-yellow-800">
-                  Veuillez télécharger une photo du passeport pour chaque voyageur ({formData.totalTravelers} passeport{formData.totalTravelers > 1 ? 's' : ''} requis)
-                </p>
-              </div>
-
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 mb-4">Glissez vos fichiers ici ou cliquez pour sélectionner</p>
-                <input
-                  type="file"
-                  multiple
-                  accept="image/*,.pdf"
-                  onChange={(e) => handleFileUpload(e.target.files)}
-                  className="hidden"
-                  id="passport-upload"
-                />
-                <label
-                  htmlFor="passport-upload"
-                  className="btn-agency inline-block py-2 px-6 rounded-lg font-semibold cursor-pointer"
-                >
-                  Sélectionner les fichiers
-                </label>
-              </div>
-
-              {formData.passports.length > 0 && (
-                <div>
-                  <h4 className="font-medium mb-2">Fichiers téléchargés:</h4>
-                  <ul className="space-y-2">
-                    {formData.passports.map((file, index) => (
-                      <li key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
-                        <span className="text-sm">{file.name}</span>
-                        <button
-                          onClick={() => setFormData(prev => ({
-                            ...prev,
-                            passports: prev.passports.filter((_, i) => i !== index)
-                          }))}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              <div className="flex gap-4">
-                <button
-                  onClick={() => setStep(2)}
-                  className="flex-1 bg-gray-200 text-gray-800 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300"
-                >
-                  Précédent
-                </button>
-                <button
-                  onClick={() => setStep(4)}
-                  disabled={formData.passports.length < formData.totalTravelers}
-                  className="flex-1 btn-agency py-3 px-6 rounded-lg font-semibold disabled:opacity-50"
-                >
-                  Suivant
-                </button>
-              </div>
-            </div>
-          )}
-
-          {step === 4 && (
-            <div className="space-y-6">
-              <h3 className="text-xl font-semibold flex items-center">
                 <Calculator className="w-6 h-6 mr-2" />
                 Récapitulatif & Devis
               </h3>
@@ -537,6 +466,77 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
 
               <div className="flex gap-4">
                 <button
+                  onClick={() => setStep(2)}
+                  className="flex-1 bg-gray-200 text-gray-800 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300"
+                >
+                  Précédent
+                </button>
+                <button
+                  onClick={() => setStep(4)}
+                  className="flex-1 btn-agency py-3 px-6 rounded-lg font-semibold"
+                >
+                  Confirmer le devis
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold flex items-center">
+                <Upload className="w-6 h-6 mr-2" />
+                Passeports
+              </h3>
+              
+              <div className="bg-yellow-50 p-4 rounded-lg">
+                <p className="text-sm text-yellow-800">
+                  Veuillez télécharger une photo du passeport pour chaque voyageur ({formData.totalTravelers} passeport{formData.totalTravelers > 1 ? 's' : ''} requis)
+                </p>
+              </div>
+
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600 mb-4">Glissez vos fichiers ici ou cliquez pour sélectionner</p>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*,.pdf"
+                  onChange={(e) => handleFileUpload(e.target.files)}
+                  className="hidden"
+                  id="passport-upload"
+                />
+                <label
+                  htmlFor="passport-upload"
+                  className="btn-agency inline-block py-2 px-6 rounded-lg font-semibold cursor-pointer"
+                >
+                  Sélectionner les fichiers
+                </label>
+              </div>
+
+              {formData.passports.length > 0 && (
+                <div>
+                  <h4 className="font-medium mb-2">Fichiers téléchargés:</h4>
+                  <ul className="space-y-2">
+                    {formData.passports.map((file, index) => (
+                      <li key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                        <span className="text-sm">{file.name}</span>
+                        <button
+                          onClick={() => setFormData(prev => ({
+                            ...prev,
+                            passports: prev.passports.filter((_, i) => i !== index)
+                          }))}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="flex gap-4">
+                <button
                   onClick={() => setStep(3)}
                   className="flex-1 bg-gray-200 text-gray-800 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300"
                 >
@@ -544,7 +544,7 @@ const BookingForm = ({ destination, prices, departureDates, onClose }: BookingFo
                 </button>
                 <button
                   onClick={handleSubmit}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || formData.passports.length < formData.totalTravelers}
                   className="flex-1 btn-agency py-3 px-6 rounded-lg font-semibold disabled:opacity-50"
                 >
                   {isSubmitting ? 'Envoi en cours...' : 'Confirmer la réservation'}
