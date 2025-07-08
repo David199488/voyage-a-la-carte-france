@@ -178,9 +178,6 @@ const Omra = () => {
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             رحلة العمرة المباركة
           </h1>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            اكتشف الروحانية والسكينة في أقدس الأماكن على وجه الأرض
-          </p>
         </div>
       </section>
 
@@ -192,7 +189,7 @@ const Omra = () => {
               احجز رحلة العمرة الخاصة بك
             </h2>
             <p className="text-xl text-gray-600">
-              املأ النموذج أدناه وسنتواصل معك لتنظيم رحلتك الروحانية
+              املأ النموذج أدناه وسنتواصل معك
             </p>
           </div>
 
@@ -230,7 +227,7 @@ const Omra = () => {
               <div>
                 <Label htmlFor="phone" className="text-right flex items-center gap-2">
                   <Phone className="w-4 h-4" />
-                  رقم الهاتف (واتساب) *
+                  رقم الهاتف *
                 </Label>
                 <Input
                   id="phone"
@@ -266,17 +263,25 @@ const Omra = () => {
 
               {formData.hasCompanions === 'نعم' && (
                 <div>
-                  <Label htmlFor="companionsCount" className="text-right">عدد المرافقين *</Label>
-                  <Input
-                    id="companionsCount"
-                    type="number"
-                    min="1"
-                    max="10"
-                    value={formData.companionsCount}
-                    onChange={(e) => handleInputChange('companionsCount', parseInt(e.target.value) || 0)}
-                    required
-                    className="text-right"
-                  />
+                  <Label className="text-right">عدد المرافقين *</Label>
+                  <div className="grid grid-cols-7 gap-2 mt-2">
+                    {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+                      <Button
+                        key={num}
+                        type="button"
+                        variant={formData.companionsCount === num ? "default" : "outline"}
+                        className={cn(
+                          "h-12 text-lg font-semibold",
+                          formData.companionsCount === num 
+                            ? "bg-agency-green text-black hover:bg-green-400" 
+                            : "hover:bg-gray-100"
+                        )}
+                        onClick={() => handleInputChange('companionsCount', num)}
+                      >
+                        {num}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -370,7 +375,7 @@ const Omra = () => {
 
             {/* Budget */}
             <div>
-              <Label htmlFor="budget" className="text-right">الميزانية المخصصة للسفر (بالدينار الجزائري)</Label>
+              <Label htmlFor="budget" className="text-right">الميزانية المخصصة للسفر</Label>
               <Input
                 id="budget"
                 value={formData.budget}
