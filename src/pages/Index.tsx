@@ -63,6 +63,20 @@ const Index = () => {
         'Forêt de Jozani',
         'Épices et marchés locaux'
       ]
+    },
+    {
+      title: 'Omra',
+      subtitle: 'Accomplissez votre pèlerinage spirituel en toute sérénité',
+      image: '/lovable-uploads/omra-destination.jpg',
+      duration: 'Séjours flexibles',
+      price: 'Devis personnalisé',
+      link: '/omra',
+      highlights: [
+        'Accompagnement spirituel complet',
+        'Hôtels proche Haram',
+        'Transport organisé',
+        'Guide expérimenté'
+      ]
     }
   ];
 

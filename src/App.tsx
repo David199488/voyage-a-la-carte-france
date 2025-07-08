@@ -8,6 +8,7 @@ import Vietnam from '@/pages/Vietnam';
 import Malaisie from '@/pages/Malaisie';
 import Zanzibar from '@/pages/Zanzibar';
 import VisaElectronique from '@/pages/VisaElectronique';
+import Omra from '@/pages/Omra';
 import NotFound from '@/pages/NotFound';
 import './App.css';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/malaisie" element={<Malaisie />} />
           <Route path="/zanzibar" element={<Zanzibar />} />
           <Route path="/visa-electronique" element={<VisaElectronique />} />
+          <Route path="/omra" element={<Omra />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster position="top-right" />
