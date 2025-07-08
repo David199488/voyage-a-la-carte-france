@@ -175,9 +175,6 @@ const Omra = () => {
         </div>
         
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            رحلة العمرة المباركة
-          </h1>
         </div>
       </section>
 
@@ -264,24 +261,20 @@ const Omra = () => {
               {formData.hasCompanions === 'نعم' && (
                 <div>
                   <Label className="text-right">عدد المرافقين *</Label>
-                  <div className="grid grid-cols-7 gap-2 mt-2">
-                    {[1, 2, 3, 4, 5, 6, 7].map((num) => (
-                      <Button
-                        key={num}
-                        type="button"
-                        variant={formData.companionsCount === num ? "default" : "outline"}
-                        className={cn(
-                          "h-12 text-lg font-semibold",
-                          formData.companionsCount === num 
-                            ? "bg-agency-green text-black hover:bg-green-400" 
-                            : "hover:bg-gray-100"
-                        )}
-                        onClick={() => handleInputChange('companionsCount', num)}
-                      >
-                        {num}
-                      </Button>
-                    ))}
-                  </div>
+                  <Select value={formData.companionsCount.toString()} onValueChange={(value) => handleInputChange('companionsCount', parseInt(value))}>
+                    <SelectTrigger className="text-right">
+                      <SelectValue placeholder="اختر عدد المرافقين..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1</SelectItem>
+                      <SelectItem value="2">2</SelectItem>
+                      <SelectItem value="3">3</SelectItem>
+                      <SelectItem value="4">4</SelectItem>
+                      <SelectItem value="5">5</SelectItem>
+                      <SelectItem value="6">6</SelectItem>
+                      <SelectItem value="7">7</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               )}
             </div>
