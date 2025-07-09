@@ -95,7 +95,7 @@ const Omra = () => {
         children_without_bed: 0,
         babies: 0,
         total_travelers: 1 + formData.companionsCount,
-        room_type: 'Standard',
+        room_type: 'single',
         passport_files: uploadedFilesPaths,
         selected_departure: {
           departureDate: formData.departureDate?.toISOString(),
