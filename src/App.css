@@ -46,11 +46,7 @@
 
 .carousel-track {
   display: inline-flex;
-  animation: scroll 25s linear infinite;
-}
-
-.carousel-track:hover {
-  animation-play-state: paused;
+  animation: scroll 20s linear infinite;
 }
 
 .carousel-item {
@@ -69,22 +65,8 @@
 }
 
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-@media (min-width: 768px) {
-  .carousel-item {
-    width: 20vw;
-  }
-}
 
-@media (min-width: 1200px) {
-  .carousel-item {
-    width: 15vw;
-  }
-}
