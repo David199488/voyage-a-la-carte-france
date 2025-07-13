@@ -161,18 +161,29 @@ const Index = () => {
 
   <div className="carousel-container">
     <div className="carousel-track">
-      <div className="carousel-item">
-        <img src="/turkish.png" alt="Turkish Airlines" />
-      </div>
-      <div className="carousel-item">
-        <img src="/saudia.png" alt="Saudia" />
-      </div>
-      <div className="carousel-item">
-        <img src="/airalgerie.png" alt="Air Algérie" />
-      </div>
+      {[1, 2].map((_, i) => (
+        <React.Fragment key={i}>
+          <div className="carousel-item">
+            <img src="/turkish.png" alt="Turkish Airlines" />
+          </div>
+          <div className="carousel-item">
+            <img src="/saudia.png" alt="Saudia" />
+          </div>
+          <div className="carousel-item">
+            <img src="/airalgerie.png" alt="Air Algérie" />
+          </div>
+          <div className="carousel-item">
+            <img src="/qatar.png" alt="Qatar Airways" />
+          </div>
+          <div className="carousel-item">
+            <img src="/emirates.png" alt="Emirates" />
+          </div>
+        </React.Fragment>
+      ))}
     </div>
   </div>
 </>
+
       
 
       {/* Why Choose Us Section */}
