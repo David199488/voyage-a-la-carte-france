@@ -34,3 +34,57 @@
 .read-the-docs {
   color: #888;
 }
+
+.carousel-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 0;
+  background-color: #fff;
+}
+
+.carousel-track {
+  display: inline-flex;
+  animation: scroll 25s linear infinite;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 33.33vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.carousel-item img {
+  max-width: 100%;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel-item {
+    width: 20vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .carousel-item {
+    width: 15vw;
+  }
+}
