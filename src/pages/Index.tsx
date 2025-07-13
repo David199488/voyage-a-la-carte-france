@@ -79,35 +79,6 @@ const Index = () => {
       ]
     }
   ];
-  
-<h2 style={{ textAlign: 'center', margin: '40px 0 20px', color: '#333' }}>
-  Nos partenaires
-</h2>
-
-<div className="carousel-container">
-  <div className="carousel-track">
-    <div className="carousel-item">
-      <img src="/logos/turkish.png" alt="Turkish Airlines" />
-    </div>
-    <div className="carousel-item">
-      <img src="/logos/saudia.png" alt="Saudia" />
-    </div>
-    <div className="carousel-item">
-      <img src="/logos/airalgerie.png" alt="Air Algérie" />
-    </div>
-
-    <!-- boucle infinie -->
-    <div className="carousel-item">
-      <img src="/logos/turkish.png" alt="Turkish Airlines" />
-    </div>
-    <div className="carousel-item">
-      <img src="/logos/saudia.png" alt="Saudia" />
-    </div>
-    <div className="carousel-item">
-      <img src="/logos/airalgerie.png" alt="Air Algérie" />
-    </div>
-  </div>
-</div>
       
   const features = [
     {
@@ -182,6 +153,36 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <>
+  <h2 style={{ textAlign: 'center', margin: '40px 0 20px', color: '#333' }}>
+    Nos partenaires
+  </h2>
+
+  <div className="carousel-container">
+    <div className="carousel-track">
+      <div className="carousel-item">
+        <img src="/logos/turkish.png" alt="Turkish Airlines" />
+      </div>
+      <div className="carousel-item">
+        <img src="/logos/saudia.png" alt="Saudia" />
+      </div>
+      <div className="carousel-item">
+        <img src="/logos/airalgerie.png" alt="Air Algérie" />
+      </div>
+
+      <div className="carousel-item">
+        <img src="/logos/turkish.png" alt="Turkish Airlines" />
+      </div>
+      <div className="carousel-item">
+        <img src="/logos/saudia.png" alt="Saudia" />
+      </div>
+      <div className="carousel-item">
+        <img src="/logos/airalgerie.png" alt="Air Algérie" />
+      </div>
+    </div>
+  </div>
+</>
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-white">
