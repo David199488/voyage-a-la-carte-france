@@ -162,27 +162,18 @@ const Index = () => {
   <div className="carousel-container">
     <div className="carousel-track">
       <div className="carousel-item">
-        <img src="/logos/turkish.png" alt="Turkish Airlines" />
+        <img src="/turkish.png" alt="Turkish Airlines" />
       </div>
       <div className="carousel-item">
-        <img src="/logos/saudia.png" alt="Saudia" />
+        <img src="/saudia.png" alt="Saudia" />
       </div>
       <div className="carousel-item">
-        <img src="/logos/airalgerie.png" alt="Air Algérie" />
-      </div>
-
-      <div className="carousel-item">
-        <img src="/logos/turkish.png" alt="Turkish Airlines" />
-      </div>
-      <div className="carousel-item">
-        <img src="/logos/saudia.png" alt="Saudia" />
-      </div>
-      <div className="carousel-item">
-        <img src="/logos/airalgerie.png" alt="Air Algérie" />
+        <img src="/airalgerie.png" alt="Air Algérie" />
       </div>
     </div>
   </div>
 </>
+      
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-white">
