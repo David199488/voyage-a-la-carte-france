@@ -8,7 +8,7 @@ const Footer = () => {
     { 
       name: 'Instagram', 
       icon: '/lovable-uploads/442be670-f514-4c7b-8b85-69de8ae02641.png', 
-      url: 'https://www.instagram.com/ugxo.visa?igsh=MTIwNW1qOW1lcmxpcg==' 
+      url: 'https://www.instagram.com/ugxo.travel?igsh=MTIwNW1qOW1lcmxpcg==' 
     },
     { 
       name: 'WhatsApp', 
