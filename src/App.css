@@ -37,21 +37,20 @@
 
 .carousel-container {
   overflow: hidden;
-  white-space: nowrap;
   width: 100%;
-  box-sizing: border-box;
-  padding: 10px 0;
   background-color: #fff;
+  padding: 20px 0;
 }
 
 .carousel-track {
-  display: inline-flex;
-  animation: scroll 20s linear infinite;
+  display: flex;
+  width: max-content;
+  animation: scroll 35s linear infinite;
 }
 
 .carousel-item {
   flex: 0 0 auto;
-  width: 33.33vw;
+  width: 33.33vw; /* 3 logos visibles sur mobile */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,14 +58,16 @@
 }
 
 .carousel-item img {
-  max-width: 100%;
-  max-height: 60px;
+  width: auto;
+  height: 80px;
   object-fit: contain;
 }
 
 @keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
-
-
