@@ -169,9 +169,8 @@ const Omra = () => {
           <img 
   src="/lovable-uploads/omra-destination.jpg" 
   alt="Omra"
-  className="w-full h-full object-cover opacity-60"
+  className="w-full h-full object-cover opacity-80"
 />
-<div className="absolute inset-0 bg-black/20"></div>
         </div>
         
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
