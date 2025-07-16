@@ -167,11 +167,11 @@ const Omra = () => {
       <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-gray-900 to-black overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="/lovable-uploads/omra-destination.jpg" 
-            alt="Omra"
-            className="w-full h-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-black/50"></div>
+  src="/lovable-uploads/omra-destination.jpg" 
+  alt="Omra"
+  className="w-full h-full object-cover opacity-60"
+/>
+<div className="absolute inset-0 bg-black/20"></div>
         </div>
         
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
