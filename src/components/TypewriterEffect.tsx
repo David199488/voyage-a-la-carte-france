@@ -40,14 +40,21 @@ const TypewriterEffect = () => {
   }, [currentText, isDeleting, isPaused, currentWordIndex, words]);
 
   return (
-    <div className="text-3xl md:text-6xl font-bold text-black mb-8 text-center">
-      <div className="mb-2">Voyages organisés</div>
-      <div className="mb-2">prêts à réserver</div>
-      <div className="flex items-center justify-center flex-wrap">
-        <span className="text-agency-green typewriter text-2xl md:text-4xl break-words max-w-full word-wrap-break-word whitespace-normal overflow-hidden">
-          {currentText}
-        </span>
-        <span className="typewriter-cursor ml-1 text-2xl md:text-4xl">|</span>
+    <div
+      className="relative w-full h-[400px] flex flex-col items-center justify-center bg-cover bg-center"
+      style={{
+        backgroundImage: "url('/bbvb.jpg')"
+      }}
+    >
+      <div className="text-3xl md:text-6xl font-bold text-white mb-4 text-center">
+        <div className="mb-2">Voyages organisés</div>
+        <div className="mb-2">prêts à réserver</div>
+        <div className="flex items-center justify-center flex-wrap">
+          <span className="text-agency-green text-2xl md:text-4xl break-words max-w-full whitespace-normal overflow-hidden">
+            {currentText}
+          </span>
+          <span className="ml-1 text-2xl md:text-4xl">|</span>
+        </div>
       </div>
     </div>
   );
