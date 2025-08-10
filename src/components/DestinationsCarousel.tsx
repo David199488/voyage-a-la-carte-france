@@ -36,7 +36,7 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
           </p>
         </div>
         
-        <div className="relative max-w-7xl mx-auto">
+        <div className="relative">
           <Carousel 
             className="w-full"
             opts={{
@@ -46,7 +46,7 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {destinations.map((destination, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={index} className="pl-2 md:pl-4 basis-[85%] sm:basis-[70%] md:basis-1/2 lg:basis-[33%]">
                   <div className="destination-card bg-white rounded-2xl shadow-lg overflow-hidden animate-fade-in h-full">
                     <div className="relative h-64">
                       <img 
