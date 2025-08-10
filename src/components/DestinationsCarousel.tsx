@@ -36,7 +36,7 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
           </p>
         </div>
         
-        <div className="relative px-4">
+        <div className="relative">
           <Carousel 
             className="w-full"
             opts={{
@@ -46,9 +46,9 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
               dragFree: true,
             }}
           >
-            <CarouselContent className="ml-0">
+            <CarouselContent className="ml-0 pl-6">
               {destinations.map((destination, index) => (
-                <CarouselItem key={index} className="pl-4 basis-[280px] min-w-0 shrink-0">{/* Force une largeur fixe pour voir la suivante */}
+                <CarouselItem key={index} className="pr-4 basis-[280px] min-w-0 shrink-0">{/* Utilise pr-4 au lieu de pl-4 */}
                   <div className="destination-card bg-white rounded-2xl shadow-lg overflow-hidden animate-fade-in h-full">
                     <div className="relative h-64">
                       <img 
