@@ -36,17 +36,19 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
           </p>
         </div>
         
-        <div className="relative">
+        <div className="relative px-4">
           <Carousel 
             className="w-full"
             opts={{
               align: "start",
               loop: true,
+              skipSnaps: false,
+              dragFree: true,
             }}
           >
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="ml-0">
               {destinations.map((destination, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 basis-[85%] sm:basis-[70%] md:basis-1/2 lg:basis-[33%]">
+                <CarouselItem key={index} className="pl-4 basis-[280px] min-w-0 shrink-0">{/* Force une largeur fixe pour voir la suivante */}
                   <div className="destination-card bg-white rounded-2xl shadow-lg overflow-hidden animate-fade-in h-full">
                     <div className="relative h-64">
                       <img 
@@ -88,8 +90,8 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12" />
-            <CarouselNext className="hidden md:flex -right-12" />
+            <CarouselPrevious className="hidden sm:flex -left-12" />
+            <CarouselNext className="hidden sm:flex -right-12" />
           </Carousel>
         </div>
       </div>

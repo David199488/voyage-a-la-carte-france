@@ -168,3 +168,15 @@ html {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+
+/* Carousel peek effect */
+.carousel-peek .embla__slide {
+  min-width: 280px;
+  margin-right: 16px;
+}
+
+@media (max-width: 640px) {
+  .carousel-peek .embla__slide {
+    min-width: calc(100vw - 120px);
+  }
+}
