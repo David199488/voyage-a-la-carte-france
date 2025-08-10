@@ -35,20 +35,21 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
             Choisissez votre prochaine aventure parmi nos destinations exclusives
           </p>
         </div>
+      </div>
         
-        <div className="relative">
-          <Carousel 
-            className="w-full"
-            opts={{
-              align: "start",
-              loop: true,
-              skipSnaps: false,
-              dragFree: true,
-            }}
-          >
-            <CarouselContent className="ml-0 pl-6">
-              {destinations.map((destination, index) => (
-                <CarouselItem key={index} className="pr-4 basis-[280px] min-w-0 shrink-0">{/* Utilise pr-4 au lieu de pl-4 */}
+      <div className="relative w-full">
+        <Carousel 
+          className="w-full"
+          opts={{
+            align: "start",
+            loop: true,
+            skipSnaps: false,
+            dragFree: true,
+          }}
+        >
+          <CarouselContent className="ml-0 pl-6 md:pl-16">
+            {destinations.map((destination, index) => (
+              <CarouselItem key={index} className="pr-4 basis-[280px] min-w-0 shrink-0">
                   <div className="destination-card bg-white rounded-2xl shadow-lg overflow-hidden animate-fade-in h-full">
                     <div className="relative h-64">
                       <img 
@@ -89,11 +90,10 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
                   </div>
                 </CarouselItem>
               ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex -left-12" />
-            <CarouselNext className="hidden sm:flex -right-12" />
-          </Carousel>
-        </div>
+          </CarouselContent>
+          <CarouselPrevious className="hidden sm:flex -left-12" />
+          <CarouselNext className="hidden sm:flex -right-12" />
+        </Carousel>
       </div>
     </section>
   );
