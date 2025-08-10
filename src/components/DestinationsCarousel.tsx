@@ -47,9 +47,9 @@ const DestinationsCarousel = ({ destinations }: DestinationsCarouselProps) => {
             dragFree: true,
           }}
         >
-          <CarouselContent className="ml-0 pl-6 md:pl-16">
+          <CarouselContent className="ml-0 pl-0 md:pl-16">
             {destinations.map((destination, index) => (
-              <CarouselItem key={index} className="pr-4 basis-[280px] min-w-0 shrink-0">
+              <CarouselItem key={index} className="pl-4 md:pr-4 basis-[280px] min-w-0 shrink-0">
                   <div className="destination-card bg-white rounded-2xl shadow-lg overflow-hidden animate-fade-in h-full">
                     <div className="relative h-64">
                       <img 
