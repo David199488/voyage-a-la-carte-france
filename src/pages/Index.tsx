@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TypewriterEffect from '@/components/TypewriterEffect';
-import DestinationCard from '@/components/DestinationCard';
+import DestinationsCarousel from '@/components/DestinationsCarousel';
+import WhyChooseUsArabic from '@/components/WhyChooseUsArabic';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 const Index = () => {
   const destinations = [
@@ -135,25 +137,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Destinations Section */}
-      <section id="destinations" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Nos Destinations
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Choisissez votre prochaine aventure parmi nos destinations exclusives
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {destinations.map((destination) => (
-              <DestinationCard key={destination.title} {...destination} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Destinations Carousel Section */}
+      <DestinationsCarousel destinations={destinations} />
 
       <>
   <h2 style={{ textAlign: 'center', margin: '40px 0 20px', color: '#333' }}>
@@ -216,6 +201,12 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Why Choose Us Arabic Section */}
+      <WhyChooseUsArabic />
+
+      {/* Testimonials Carousel */}
+      <TestimonialsCarousel />
 
       {/* CTA Section */}
       <section className="py-20 bg-agency-green">
